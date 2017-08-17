@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>To Do List</title>
+  </head>
+  <body>
+    <div class="container">
+
+      <form class="addTask" action="/" method="post">
+        <input type="text" name="addTask" value="">
+        {{#done}}
+        <button type="submit" name="button"></button>
+        {{/done}}
+      </form>
+
+      {{#todo}}
+      <form class="doTask" action="index.html" method="post">
+        {{#done}}
+        <button type="submit" name="button"></button>
+        {{/done}}
+        <input type="text" name="doTask" value="">
+      </form>
+      {{/todo}}
+
+      {{^complete}}
+      <form class="completeTask" action="index.html" method="post">
+        <input type="text" name="completeTask" value="">
+      </form>
+      {{/complete}}
+
+    </div>
+  </body>
+</html>
