@@ -1,34 +1,17 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>To Do List</title>
-  </head>
-  <body>
-    <div class="container">
 
-      <form class="addTask" action="/" method="post">
-        <input type="text" name="addTask" value="">
-        {{#done}}
-        <button type="submit" name="button"></button>
-        {{/done}}
+      <form class="addTask" action="/create" method="post">
+        <input type="text" name="addTask">
+        <button type="submit">Submit</button>
       </form>
 
-      {{#todo}}
-      <form class="doTask" action="index.html" method="post">
-        {{#done}}
-        <button type="submit" name="button"></button>
-        {{/done}}
-        <input type="text" name="doTask" value="">
+      <h1>To Do</h1>
+      {{#toDo}}
+      <form class="doTask" action="/complete/{{id}}" method="post">
+        <button type="submit">{{text}}</button>
       </form>
-      {{/todo}}
+      {{/toDo}}
 
-      {{^complete}}
-      <form class="completeTask" action="index.html" method="post">
-        <input type="text" name="completeTask" value="">
-      </form>
+      <h1>Completed</h1>
+      {{#complete}}
+      {{text}}
       {{/complete}}
-
-    </div>
-  </body>
-</html>

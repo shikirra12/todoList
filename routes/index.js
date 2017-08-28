@@ -4,26 +4,49 @@ const router = express.Router();
 const toDo = [];
 const complete = [];
 
+function genId() {
+  let id = 1;
+  let idFound = true;
+
+while (idFound) {
+  let task = toDo.find(function(task) {
+    return task.id == id;
+  });
+  if (task) {
+    id++;
+  } else {
+    idFound = false;
+  }
+}
+return id;
+}
+
 router.get("/", function(req, res){
-  res.render('todo', {todo: todo});
+  res.render('todo', {toDo: toDo, complete: complete});
 });
 
-router.post("/", function(req, res){
-  // toDo.forEach(function({}) {
-  //   console.log({});
-  //   toDo.push(req.body.)
-  // });
-  // if intial button is clicked, move text in field to "toDo" form. when in the "toDo" form, it needs to include a new button. should be able to keep current tasks in a list if another item is added to list. if buttonis clicked, it is true, move text into "completedTask" form
+router.post("/create", function(req, res){
+  console.log("this is todo", req.body.addTask);
+let obj = {
+  id: genId(),
+  complete: false,
+  text: req.body.addTask
+}
+  toDo.push(obj);
+  res.redirect("/");
+});
 
-  // let id = 1;
-  // for (var i = 0; i < toDo.length; i++) {
-  //   toDo[i].id += 1;
-  //   if (toDo == true) {
-  //     toDo.push(req.body.complete)
-  //   }
-  // }
-  toDo.push(req.body.toDo);
-  res.redirect('/');
-})
+router.post("/complete/:id", function(req, res) {
+  let task = toDo.find(function(task) {
+    return task.id == req.params.id;
+  });
+  let index = toDo.indexOf(task);
+  complete.push(task);
+  toDo.splice(index, 1);
+  res.redirect("/");
+  });
 
 module.exports = router;
+// what file do you want to the information to go to, what information is going to this file
+
+// redirect: makes a Get call to the file you want to go to
